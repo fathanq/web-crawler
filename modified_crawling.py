@@ -61,7 +61,7 @@ def modified_crawl(url):
     """Function untuk modified crawling page.
     """
     # kondisi berhenti untuk laptop biar ga running all the time
-    if len(visited_url) >= 80:
+    if len(visited_url) >= 500:
         return
     # kondisi berhenti dari algoritma
     if (len(hot_queue) == 0) and (len(url_queue) == 0):
@@ -76,23 +76,33 @@ def modified_crawl(url):
     request = page.content
     soup = bs4.BeautifulSoup(request, 'html.parser')
 
-    # extract title
-    title = soup.title.string
-    # print("judul:", title)
+    # cek eror title dan text pada facebook / twitter / google sign in
+    if(url.count("/auth/") >= 1):
+        title = "login"
+        complete_text = "connect acount"
+    # cek twitter
+    elif(url.count("twitter.com") >= 1):
+        title = "twitter"
+        complete_text = "twitter"
+    # jika tidak eror, maka ambil title dan text sesuai page
+    else:
+        # extract title
+        title = soup.title.string
+        # print("judul:", title)
 
-    # extract text content
-    texts = soup.findAll(text=True)
-    visible_texts = filter(tag_visible, texts)
-    text = u" ".join(t.strip() for t in visible_texts)
-    text = text.lstrip().rstrip()
-    text = text.split(',')
-    clean_text = ''
-    for sen in text:
-        if sen:
-            sen = sen.rstrip().lstrip()
-            clean_text += sen+','
-    complete_text = clean_text
-    # print(complete_text)
+        # extract text content
+        texts = soup.findAll(text=True)
+        visible_texts = filter(tag_visible, texts)
+        text = u" ".join(t.strip() for t in visible_texts)
+        text = text.lstrip().rstrip()
+        text = text.split(',')
+        clean_text = ''
+        for sen in text:
+            if sen:
+                sen = sen.rstrip().lstrip()
+                clean_text += sen+','
+        complete_text = clean_text
+        # print(complete_text)
 
     # extract outgoing link
     links = soup.findAll("a", href=True)
