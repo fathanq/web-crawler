@@ -31,7 +31,7 @@ def crawl(url):
     """Function untuk crawling page.
     """
     # kondisi berhenti
-    if len(visited_url) >= 1:
+    if len(visited_url) >= 5:
         return
 
     # memasukan url kedalam visited_url
