@@ -97,7 +97,7 @@ def crawl(url):
 start_time = time.time()
 
 # titik awal: 1 situs
-url = "https://www.cnnindonesia.com/search/?query=omnibus+law"
+url = "https://www.indosport.com/"
 crawl(url)
 
 # print("Jumlah url yg sudah dilihat:", len(visited_url))

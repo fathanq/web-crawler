@@ -38,22 +38,24 @@ hot_queue = deque([])
 def jumlah_key_body(complete_text):
     """Function untuk menghitung jumlah key di text
     """
-    keyword = "Omnibus Law"
-    keyword2 = "Omnibus law"
-    keyword3 = "omnibus law"
+    keyword = "Barcelona"
+    keyword2 = "Klub bola Barcelona"
+    keyword3 = "klub bola Barcelona"
     jumlah_keyword = complete_text.count(
         keyword) + complete_text.count(keyword2) + complete_text.count(keyword3)
+    # jumlah_keyword = complete_text.count(keyword)
     return jumlah_keyword
 
 
 def jumlah_key_title(title):
     """Function untuk menghitung jumlah key di title
     """
-    keyword = "Omnibus Law"
-    keyword2 = "Omnibus law"
-    keyword3 = "omnibus law"
+    keyword = "Barcelona"
+    keyword2 = "Klub bola Barcelona"
+    keyword3 = "klub bola Barcelona"
     jumlah_keyword = title.count(
         keyword) + title.count(keyword2) + title.count(keyword3)
+    # jumlah_keyword = title.count(keyword)
     return jumlah_keyword
 
 
@@ -61,7 +63,7 @@ def modified_crawl(url):
     """Function untuk modified crawling page.
     """
     # kondisi berhenti untuk laptop biar ga running all the time
-    if len(visited_url) >= 500:
+    if len(visited_url) >= 50:
         return
     # kondisi berhenti dari algoritma
     if (len(hot_queue) == 0) and (len(url_queue) == 0):
@@ -141,7 +143,7 @@ def modified_crawl(url):
         if flag == 0:
             if (visited_url.count(complete_url)) == 0:
                 # kondisi yang dimasukan ke hot_queue dan url_queue
-                if (hot_url == True) or ((complete_url.count("omnibus-law") >= 1)):
+                if (hot_url == True) or ((complete_url.count("klub-bola-barcelona") >= 1)):
                     hot_queue.append(complete_url)
                 else:
                     url_queue.append(complete_url)
