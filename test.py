@@ -63,3 +63,27 @@ kalimat = "muhammad fathan qoriiba dimana fathan dan fathan qoriiba tidak sama q
 kata = "fathan qoriiba"
 hasil = kalimat.count(kata)
 print(hasil)
+
+        # # cek eror title dan text pada facebook / twitter / google sign in
+        # if(url.count("/auth/") >= 1):
+        #     title = "login"
+        #     complete_text = "connect acount"
+        # # cek twitter
+        # elif(url.count("twitter.com") >= 1):
+        #     title = "twitter"
+        #     complete_text = "twitter"
+        # # jika tidak eror, maka ambil title dan text sesuai page
+        # else:
+
+    
+        # try:
+        #     res = requests.get(link)    
+        #     soup = BeautifulSoup(res.text, 'lxml')
+        #     try:
+        #         df = soup.title.string.strip()
+        #     except (AttributeError, KeyError):
+        #         df = ""
+
+        #     print(df)
+        # except IOError:
+        #     pass
