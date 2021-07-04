@@ -6,6 +6,10 @@ import pandas as pd
 from collections import deque, Counter
 import urllib.request
 from urllib.parse import urljoin
+import networkx as nx
+import matplotlib.pyplot as plt
+import pydot
+from networkx.drawing.nx_pydot import graphviz_layout
 import time
 import pymysql
 
@@ -40,7 +44,7 @@ def crawl(url):
         # kondisi berhenti
         time_now = time.time() - start_time
         time_now_int = int(time_now)
-        if time_now_int >= 900:
+        if time_now_int >= 10:
             return
         # if len(visited_url) >= 1800:
         #     return
@@ -143,6 +147,9 @@ def crawl(url):
             # Complete relative URLs and strip trailing slash
             complete_url = urljoin(url, i["href"]).rstrip('/')
 
+            # create graph
+            # G.add_edges_from([(url, complete_url)])
+
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
             # Execute the query
@@ -181,8 +188,11 @@ def crawl(url):
 # time
 start_time = time.time()
 
+# graph
+G = nx.DiGraph()
+
 # titik awal: 1 situs
-url = "https://www.indosport.com/"
+url = "https://www.indosport.com"
 crawl(url)
 
 # # Create a new record
@@ -200,3 +210,11 @@ print("Jumlan url dalam queue:", len(url_queue))
 
 # Close the connection
 db.close()
+
+# draw graph
+pos = graphviz_layout(G, prog="dot")
+nx.draw_networkx_nodes(G, pos, node_size=300)
+nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
+nx.draw_networkx_labels(G, pos)
+nx.draw(G, pos, with_labels=False, arrows=True)
+plt.show()
