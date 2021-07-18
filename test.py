@@ -1,4 +1,4 @@
-from collections import deque, Counter
+# from collections import deque, Counter
 # full text page
 # print(page.text)
 
@@ -59,10 +59,10 @@ print(url_queue)
 #     return jumlah_kata
 
 
-kalimat = "muhammad fathan qoriiba dimana fathan dan fathan qoriiba tidak sama qoriiba dan fathan fathan qoriiba"
-kata = "fathan qoriiba"
-hasil = kalimat.count(kata)
-print(hasil)
+# kalimat = "muhammad fathan qoriiba dimana fathan dan fathan qoriiba tidak sama qoriiba dan fathan fathan qoriiba"
+# kata = "fathan qoriiba"
+# hasil = kalimat.count(kata)
+# print(hasil)
 
         # # cek eror title dan text pada facebook / twitter / google sign in
         # if(url.count("/auth/") >= 1):
@@ -87,3 +87,76 @@ print(hasil)
         #     print(df)
         # except IOError:
         #     pass
+
+
+import os
+import bs4
+import requests
+import re
+import pandas as pd
+from collections import deque, Counter
+import urllib.request
+from urllib.parse import urljoin
+import networkx as nx
+import matplotlib.pyplot as plt
+import pydot
+from networkx.drawing.nx_pydot import graphviz_layout
+import time
+import pymysql
+
+url = "https://designmodo.com/html5-examples/"
+page = requests.get(url)
+request = page.content
+soup = bs4.BeautifulSoup(request, 'html.parser')
+
+# description = soup.find("meta", property="og:description")
+# keywords = soup.find("meta", property="og:keywords")
+# meta = soup.find_all('meta')
+# for tag in meta:
+#     if 'name' in tag.attrs.keys() and tag.attrs['name'].strip().lower() in ['description', 'keywords']:
+#         # print ('NAME    :',tag.attrs['name'].lower())
+#         # print ('CONTENT :',tag.attrs['content'])
+#         print(type(tag.attrs['content']))
+# print(meta.rs.keys() in 'description')
+desc = soup.find("meta",attrs={"name":"description"}).get("content")
+# key = soup.find("meta",attrs={"name":"keywords"}).get("content")
+key = soup.find("meta",attrs={"name":"keywords"})
+if key is None:
+    key = "-"
+else:
+    key = key.get("content")
+
+def tag_visible(element):
+    """Function untuk merapihkan content text.
+    """
+    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    if isinstance(element, bs4.element.Comment):
+        return False
+    if re.match(r"[\n]+", str(element)):
+        return False
+    return True
+
+# texts = soup.find_all('article')
+# texts = soup.findAll(text=True)
+# visible_texts = filter(tag_visible, texts)
+# text = u" ".join(t.strip() for t in visible_texts)
+# text = text.lstrip().rstrip()
+# text = text.split(',')
+# clean_text = ''
+# for sen in text:
+#     if sen:
+#         sen = sen.rstrip().lstrip()
+#         clean_text += sen+','
+#     complete_text = clean_text
+# print(texts)
+
+# Get the whole body tag
+tag = soup.body
+ 
+# Print each string recursively
+for string in tag.strings:
+    print(string)
+
+# print(description)
+# print(keywords)

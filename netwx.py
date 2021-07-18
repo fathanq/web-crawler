@@ -4,8 +4,13 @@ import pydot
 from networkx.drawing.nx_pydot import graphviz_layout
 
 G = nx.DiGraph()
-G.add_edges_from([('A', 'B'), ('B', 'C')])
-G.add_edges_from([('A', 'B'), ('A', 'C'), ('A', 'D')])
+# G.add_edges_from([('A', 'B'), ('A', 'E')])
+# G.add_edges_from([('B', 'F'), ('A', 'C'), ('A', 'D')])
+# G.add_edges_from([('B', 'G')])
+G.add_edges_from([('www.link1.com', 'www.link2.com')])
+G.add_edges_from([('www.link1.com', 'www.link3.com')])
+G.add_edges_from([('www.link1.com', 'www.link4.com')])
+G.add_edges_from([('www.link2.com', 'www.link5.com')])
 pos = graphviz_layout(G, prog="dot")
 nx.draw_networkx_nodes(G, pos, node_size=300)
 nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')

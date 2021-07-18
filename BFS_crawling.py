@@ -76,8 +76,14 @@ def crawl(url):
         complete_text = clean_text
         # print(complete_text)
 
+        # get meta description, keywords
+        description = soup.find("meta",attrs={"name":"description"}).get("content")
+        keywords = soup.find("meta",attrs={"name":"keywords"}).get("content")
+
+        # isHTML5 or isHotURL
+
         # Create a new record
-        sql = "INSERT INTO `page_content` (`base_url`, `title`, `content_text`) VALUES (%s, %s, %s)"
+        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         # Execute the query
         cursor.execute(sql, (url, title, complete_text))
         # commit to save our changes
@@ -148,7 +154,7 @@ def crawl(url):
             complete_url = urljoin(url, i["href"]).rstrip('/')
 
             # create graph
-            # G.add_edges_from([(url, complete_url)])
+            G.add_edges_from([(url, complete_url)])
 
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
