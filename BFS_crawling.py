@@ -76,16 +76,28 @@ def crawl(url):
         complete_text = clean_text
         # print(complete_text)
 
-        # get meta description, keywords
-        description = soup.find("meta",attrs={"name":"description"}).get("content")
-        keywords = soup.find("meta",attrs={"name":"keywords"}).get("content")
+        # get meta description
+        description = soup.find("meta",attrs={"name":"description"})
+        if description is None:
+            description = "-"
+        else:
+            description = description.get("content")
+
+        # get meta keywords
+        keywords = soup.find("meta",attrs={"name":"keywords"})
+        if keywords is None:
+            keywords = "-"
+        else:
+            keywords = keywords.get("content")
 
         # isHTML5 or isHotURL
+        html5 = "no"
+        hot_link = "no"
 
         # Create a new record
         sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
         # Execute the query
-        cursor.execute(sql, (url, title, complete_text))
+        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link))
         # commit to save our changes
         db.commit()
 
