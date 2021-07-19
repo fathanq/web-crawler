@@ -34,6 +34,9 @@ reorder_queue(url_queue)
 # membuat hot_queue
 hot_queue = deque([])
 
+# new start_time_MSB
+start_time_MSB = time.time()
+
 
 def jumlah_key_body(complete_text):
     """Function untuk menghitung jumlah key di text
@@ -64,9 +67,9 @@ def modified_crawl(url):
     """
     try:
         # kondisi berhenti biar ga running all the time
-        time_now = time.time() - start_time
+        time_now = time.time() - start_time_MSB
         time_now_int = int(time_now)
-        if time_now_int >= 10:
+        if time_now_int >= 120:
             return
         # if len(visited_url) >= 1800:
         #     return
@@ -115,9 +118,15 @@ def modified_crawl(url):
         else:
             keywords = keywords.get("content")
 
-        # isHTML5 or isHotURL
+        # check HTML5
         html5 = "no"
+
+        # check hot_url
+        hot_url = False
         hot_link = "no"
+        if (jumlah_key_body(complete_text) >= 10) or (jumlah_key_title(title) >= 1):
+            hot_url = True
+            hot_link = "yes"
 
         # Create a new record
         sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
@@ -182,11 +191,6 @@ def modified_crawl(url):
 
         # extract outgoing link
         links = soup.findAll("a", href=True)
-
-        # mengecek hot_url
-        hot_url = False
-        if (jumlah_key_body(complete_text) >= 10) or (jumlah_key_title(title) >= 1):
-            hot_url = True
 
         # memasukan outgoing link kedalam queue
         for i in links:

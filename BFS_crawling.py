@@ -207,10 +207,10 @@ def crawl(url):
 start_time = time.time()
 
 # graph
-G = nx.DiGraph()
+# G = nx.DiGraph()
 
 # titik awal: 1 situs
-url = "https://www.indosport.com"
+url = "https://www.indosport.com/sepakbola"
 crawl(url)
 
 # # Create a new record
