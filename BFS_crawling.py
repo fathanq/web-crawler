@@ -166,7 +166,7 @@ def crawl(url):
             complete_url = urljoin(url, i["href"]).rstrip('/')
 
             # create graph
-            G.add_edges_from([(url, complete_url)])
+            # G.add_edges_from([(url, complete_url)])
 
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
@@ -214,25 +214,25 @@ url = "https://www.indosport.com"
 crawl(url)
 
 # # Create a new record
-sql = "INSERT INTO `crawling` (`total_page`, `duration_crawl`) VALUES (%s, %s)"
-# Execute the query
-time_now = time.time() - start_time
-time_now_int = int(time_now)
-cursor.execute(sql, (len(visited_url), time_now_int))
-# commit to save our changes
-db.commit()
+# sql = "INSERT INTO `crawling` (`total_page`, `duration_crawl`) VALUES (%s, %s)"
+# # Execute the query
+# time_now = time.time() - start_time
+# time_now_int = int(time_now)
+# cursor.execute(sql, (len(visited_url), time_now_int))
+# # commit to save our changes
+# db.commit()
 
 print("Jumlah url yg sudah dicrawl:", len(visited_url))
 print("Jumlan url dalam queue:", len(url_queue))
 # print("Waktu yang dibutuhkan: %s detik" % (time.time() - start_time))
 
-# Close the connection
-db.close()
+# # Close the connection
+# db.close()
 
 # draw graph
-pos = graphviz_layout(G, prog="dot")
-nx.draw_networkx_nodes(G, pos, node_size=300)
-nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
-nx.draw_networkx_labels(G, pos)
-nx.draw(G, pos, with_labels=False, arrows=True)
-plt.show()
+# pos = graphviz_layout(G, prog="dot")
+# nx.draw_networkx_nodes(G, pos, node_size=300)
+# nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
+# nx.draw_networkx_labels(G, pos)
+# nx.draw(G, pos, with_labels=False, arrows=True)
+# plt.show()
