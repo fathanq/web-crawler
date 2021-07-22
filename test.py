@@ -104,10 +104,17 @@ from networkx.drawing.nx_pydot import graphviz_layout
 import time
 import pymysql
 
-url = "https://designmodo.com/html5-examples/"
-page = requests.get(url)
-request = page.content
-soup = bs4.BeautifulSoup(request, 'html.parser')
+try:
+    url = "mailto:hello@cybercare.cc"
+    page = requests.get(url)
+    request = page.content
+    response = requests.get(url).status_code
+    if response == 200:
+        print("yes", response)
+    else:
+        print("no", response)
+except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
+    print("haduh")
 
 # description = soup.find("meta", property="og:description")
 # keywords = soup.find("meta", property="og:keywords")
@@ -118,24 +125,24 @@ soup = bs4.BeautifulSoup(request, 'html.parser')
 #         # print ('CONTENT :',tag.attrs['content'])
 #         print(type(tag.attrs['content']))
 # print(meta.rs.keys() in 'description')
-desc = soup.find("meta",attrs={"name":"description"}).get("content")
+# desc = soup.find("meta",attrs={"name":"description"}).get("content")
 # key = soup.find("meta",attrs={"name":"keywords"}).get("content")
-key = soup.find("meta",attrs={"name":"keywords"})
-if key is None:
-    key = "-"
-else:
-    key = key.get("content")
+# key = soup.find("meta",attrs={"name":"keywords"})
+# if key is None:
+#     key = "-"
+# else:
+#     key = key.get("content")
 
-def tag_visible(element):
-    """Function untuk merapihkan content text.
-    """
-    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
-        return False
-    if isinstance(element, bs4.element.Comment):
-        return False
-    if re.match(r"[\n]+", str(element)):
-        return False
-    return True
+# def tag_visible(element):
+#     """Function untuk merapihkan content text.
+#     """
+#     if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+#         return False
+#     if isinstance(element, bs4.element.Comment):
+#         return False
+#     if re.match(r"[\n]+", str(element)):
+#         return False
+#     return True
 
 # texts = soup.find_all('article')
 # texts = soup.findAll(text=True)
@@ -152,11 +159,11 @@ def tag_visible(element):
 # print(texts)
 
 # Get the whole body tag
-tag = soup.body
+# tag = soup.body
  
 # Print each string recursively
-for string in tag.strings:
-    print(string)
+# for string in tag.strings:
+#     print(string)
 
 # print(description)
 # print(keywords)

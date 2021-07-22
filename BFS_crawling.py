@@ -44,7 +44,7 @@ def crawl(url):
         # kondisi berhenti
         time_now = time.time() - start_time
         time_now_int = int(time_now)
-        if time_now_int >= 10:
+        if time_now_int >= 5:
             return
         # if len(visited_url) >= 1800:
         #     return
@@ -168,6 +168,17 @@ def crawl(url):
             # create graph
             # G.add_edges_from([(url, complete_url)])
 
+            # create list graph
+            branch = []
+            # remove https://
+            new_url = url.replace('https://', '')
+            new_url = new_url.replace('http://', '')
+            new_complete = complete_url.replace('https://', '')
+            new_complete = new_complete.replace('http://', '')
+            branch.append(new_url)
+            branch.append(new_complete)
+            list_g.append(branch)
+
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
             # Execute the query
@@ -192,7 +203,7 @@ def crawl(url):
                 if (visited_url.count(complete_url)) == 0:
                     url_queue.append(complete_url)
 
-    except (AttributeError, KeyError):
+    except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
         title = "no-title"
         complete_text = "no-text"
 
@@ -200,6 +211,16 @@ def crawl(url):
     if len(url_queue) == 0:
         return
     current = url_queue.popleft()
+
+    # # create list graph
+    # branch = []
+    # # remove https://
+    # new_url = url.replace('https://', '')
+    # new_complete = current.replace('https://', '')
+    # branch.append(new_url)
+    # branch.append(new_complete)
+    # list_g.append(branch)
+
     crawl(current)
 
 
@@ -207,11 +228,12 @@ def crawl(url):
 start_time = time.time()
 
 # graph
-# G = nx.DiGraph()
+G = nx.DiGraph()
+list_g = []
 
 # titik awal: 1 situs
-url = "https://www.indosport.com/sepakbola"
-crawl(url)
+url_awal = "https://www.indosport.com"
+crawl(url_awal)
 
 # # Create a new record
 # sql = "INSERT INTO `crawling` (`total_page`, `duration_crawl`) VALUES (%s, %s)"

@@ -37,6 +37,9 @@ hot_queue = deque([])
 # new start_time_MSB
 start_time_MSB = time.time()
 
+# keyword
+hot_key = "barcelona"
+
 
 def jumlah_key_body(complete_text):
     """Function untuk menghitung jumlah key di text
@@ -69,7 +72,7 @@ def modified_crawl(url):
         # kondisi berhenti biar ga running all the time
         time_now = time.time() - start_time_MSB
         time_now_int = int(time_now)
-        if time_now_int >= 120:
+        if time_now_int >= 5:
             return
         # if len(visited_url) >= 1800:
         #     return
@@ -199,6 +202,15 @@ def modified_crawl(url):
             # Complete relative URLs and strip trailing slash
             complete_url = urljoin(url, i["href"]).rstrip('/')
 
+            # # create list graph
+            # branch = []
+            # # remove https://
+            # new_url = url.replace('https://', '')
+            # new_complete = complete_url.replace('https://', '')
+            # branch.append(url)
+            # branch.append(new_complete)
+            # list_g.append(branch)
+
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
             # Execute the query
@@ -236,7 +248,7 @@ def modified_crawl(url):
         reorder_queue(hot_queue)
         reorder_queue(url_queue)
 
-    except (AttributeError, KeyError):
+    except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
         title = "no-title"
         complete_text = "no-text"
 
@@ -253,11 +265,11 @@ url = url_queue.popleft()
 modified_crawl(url)
 
 # # Create a new record
-sql = "INSERT INTO `crawling` (`total_page`, `duration_crawl`) VALUES (%s, %s)"
+sql = "INSERT INTO `crawling` (`url_awal`, `keyword`, `total_page`, `duration_crawl`) VALUES (%s, %s, %s, %s)"
 # Execute the query
 time_now = time.time() - start_time
 time_now_int = int(time_now)
-cursor.execute(sql, (len(visited_url), time_now_int))
+cursor.execute(sql, (url_awal, hot_key, len(visited_url), time_now_int))
 # commit to save our changes
 db.commit()
 
@@ -268,3 +280,15 @@ print("Waktu yang dibutuhkan: %s detik" % (time.time() - start_time))
 
 # Close the connection
 db.close()
+
+# draw graph
+G.add_edges_from(list_g)
+# print(list_g)
+pos = graphviz_layout(G, prog="dot")
+nx.draw(G, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, edge_cmap=plt.cm.Blues, with_labels=True)
+plt.savefig("graph.png", dpi=1000)
+# nx.draw_networkx_nodes(G, pos, node_size=300)
+# nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
+# nx.draw_networkx_labels(G, pos)
+# nx.draw(G, pos, with_labels=False, arrows=True)
+# plt.show()
