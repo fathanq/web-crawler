@@ -105,14 +105,25 @@ import time
 import pymysql
 
 try:
-    url = "mailto:hello@cybercare.cc"
+    url = "https://www.indosport.com"
     page = requests.get(url)
     request = page.content
+    soup = bs4.BeautifulSoup(request, 'html.parser')
     response = requests.get(url).status_code
     if response == 200:
         print("yes", response)
     else:
         print("no", response)
+
+    links = soup.findAll("a", href=True)
+    print(links[0])
+
+    for i in links:
+        # print(i)
+        complete_url = urljoin(url, i["href"]).rstrip('/')
+        print(type(complete_url))
+        break
+
 except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
     print("haduh")
 

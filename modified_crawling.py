@@ -16,9 +16,9 @@ def reorder_queue(queue):
     # sorting backlink_dictionary
     sort_orders = sorted(backlink_dictionary.items(),
                          key=lambda x: x[1], reverse=True)
+                         
     # mengkosongkan queue
     queue.clear()
-
     # membuat queue yang sudah di sort
     for i in sort_orders:
         queue.append(i[0])
