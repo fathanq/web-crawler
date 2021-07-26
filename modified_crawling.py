@@ -202,14 +202,16 @@ def modified_crawl(url):
             # Complete relative URLs and strip trailing slash
             complete_url = urljoin(url, i["href"]).rstrip('/')
 
-            # # create list graph
-            # branch = []
-            # # remove https://
-            # new_url = url.replace('https://', '')
-            # new_complete = complete_url.replace('https://', '')
-            # branch.append(url)
-            # branch.append(new_complete)
-            # list_g.append(branch)
+            # create list graph
+            branch = []
+            # remove https://
+            new_url = url.replace('https://', '')
+            new_url = new_url.replace('http://', '')
+            new_complete = complete_url.replace('https://', '')
+            new_complete = new_complete.replace('http://', '')
+            branch.append(new_url)
+            branch.append(new_complete)
+            list_g.append(branch)
 
             # Create a new record
             sql = "INSERT INTO `linking` (`crawl_id`, `url`, `outgoing_link`) VALUES (%s, %s, %s)"
