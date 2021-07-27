@@ -232,7 +232,7 @@ G = nx.DiGraph()
 list_g = []
 
 # titik awal: 1 situs
-url_awal = "https://www.indosport.com"
+url_awal = input("URL Awal: ")
 crawl(url_awal)
 
 # # Create a new record

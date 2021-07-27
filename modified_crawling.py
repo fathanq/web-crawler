@@ -38,17 +38,16 @@ hot_queue = deque([])
 start_time_MSB = time.time()
 
 # keyword
-hot_key = "barcelona"
+hot_key = input("Keyword: ")
 
 
 def jumlah_key_body(complete_text):
     """Function untuk menghitung jumlah key di text
     """
-    keyword = "Barcelona"
-    keyword2 = "Klub bola Barcelona"
-    keyword3 = "klub bola Barcelona"
-    jumlah_keyword = complete_text.count(
-        keyword) + complete_text.count(keyword2) + complete_text.count(keyword3)
+    keyword = hot_key
+    # keyword2 = "Klub bola Barcelona"
+    # keyword3 = "klub bola Barcelona"
+    jumlah_keyword = complete_text.count(keyword)
     # jumlah_keyword = complete_text.count(keyword)
     return jumlah_keyword
 
@@ -56,11 +55,10 @@ def jumlah_key_body(complete_text):
 def jumlah_key_title(title):
     """Function untuk menghitung jumlah key di title
     """
-    keyword = "Barcelona"
-    keyword2 = "Klub bola Barcelona"
-    keyword3 = "klub bola Barcelona"
-    jumlah_keyword = title.count(
-        keyword) + title.count(keyword2) + title.count(keyword3)
+    keyword = hot_key
+    # keyword2 = "Klub bola Barcelona"
+    # keyword3 = "klub bola Barcelona"
+    jumlah_keyword = title.count(keyword)
     # jumlah_keyword = title.count(keyword)
     return jumlah_keyword
 
