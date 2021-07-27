@@ -34,11 +34,11 @@ reorder_queue(url_queue)
 # membuat hot_queue
 hot_queue = deque([])
 
-# new start_time_MSB
-start_time_MSB = time.time()
-
 # keyword
 hot_key = input("Keyword: ")
+
+# new start_time_MSB
+start_time_MSB = time.time()
 
 
 def jumlah_key_body(complete_text):

@@ -24,6 +24,9 @@ url_queue = deque([])
 # daftar url yang sudah di crawl
 visited_url = []
 
+# titik awal: 1 situs
+url_awal = input("URL Awal: ")
+
 
 def tag_visible(element):
     """Function untuk merapihkan content text.
@@ -231,8 +234,7 @@ start_time = time.time()
 G = nx.DiGraph()
 list_g = []
 
-# titik awal: 1 situs
-url_awal = input("URL Awal: ")
+# crawl begin
 crawl(url_awal)
 
 # # Create a new record
