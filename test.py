@@ -104,7 +104,19 @@ from networkx.drawing.nx_pydot import graphviz_layout
 import time
 import pymysql
 
+def tag_visible(element):
+    """Function untuk merapihkan content text.
+    """
+    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    if isinstance(element, bs4.element.Comment):
+        return False
+    if re.match(r"[\n]+", str(element)):
+        return False
+    return True
+
 try:
+
     url = "https://www.indosport.com"
     page = requests.get(url)
     request = page.content
@@ -115,14 +127,18 @@ try:
     else:
         print("no", response)
 
-    links = soup.findAll("a", href=True)
-    print(links[0])
-
-    for i in links:
-        # print(i)
-        complete_url = urljoin(url, i["href"]).rstrip('/')
-        print(type(complete_url))
-        break
+    body = soup.find('body').get_text()
+    # visible_texts = filter(tag_visible, body)
+    text = u" ".join(t.strip() for t in body)
+    text = text.lstrip().rstrip()
+    text = text.split(',')
+    clean_text = ''
+    for sen in text:
+        if sen:
+            sen = sen.rstrip().lstrip()
+            clean_text += sen+','
+    complete_text = clean_text
+    print(complete_text)
 
 except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
     print("haduh")
