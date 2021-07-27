@@ -132,9 +132,9 @@ def modified_crawl(url):
             hot_link = "yes"
 
         # Create a new record
-        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`, `model_crawl`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         # Execute the query
-        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link))
+        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link, "modified similarity-based crawling"))
         # commit to save our changes
         db.commit()
 
@@ -284,11 +284,11 @@ print("Waktu yang dibutuhkan: %s detik" % (time.time() - start_time))
 db.close()
 
 # draw graph
-G.add_edges_from(list_g)
-# print(list_g)
-pos = graphviz_layout(G, prog="dot")
-nx.draw(G, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, edge_cmap=plt.cm.Blues, with_labels=True)
-plt.savefig("graph.png", dpi=1000)
+# G.add_edges_from(list_g)
+# pos = graphviz_layout(G, prog="dot")
+# nx.draw(G, pos, node_color='#A0CBE2', edge_color='#BB0000', width=2, edge_cmap=plt.cm.Blues, with_labels=True)
+# plt.savefig("graph.png", dpi=1000)
+
 # nx.draw_networkx_nodes(G, pos, node_size=300)
 # nx.draw_networkx_edges(G, pos, edgelist=G.edges(), edge_color='black')
 # nx.draw_networkx_labels(G, pos)

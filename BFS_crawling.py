@@ -95,9 +95,9 @@ def crawl(url):
         hot_link = "no"
 
         # Create a new record
-        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`, `model_crawl`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         # Execute the query
-        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link))
+        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link, "BFS crawling"))
         # commit to save our changes
         db.commit()
 
