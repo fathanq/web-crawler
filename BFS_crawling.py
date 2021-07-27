@@ -27,6 +27,9 @@ visited_url = []
 # titik awal: 1 situs
 url_awal = input("URL Awal: ")
 
+# keyword
+hot_key = input("Keyword: ")
+
 
 def tag_visible(element):
     """Function untuk merapihkan content text.

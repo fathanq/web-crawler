@@ -34,9 +34,6 @@ reorder_queue(url_queue)
 # membuat hot_queue
 hot_queue = deque([])
 
-# keyword
-hot_key = input("Keyword: ")
-
 # new start_time_MSB
 start_time_MSB = time.time()
 
