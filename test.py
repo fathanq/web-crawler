@@ -129,7 +129,6 @@ try:
     
     article_html5 = soup.find('article')
     if article_html5 is None:
-        # body = soup.find('body').get_text()
         texts = soup.find('body').findAll(text=True)
         visible_texts = filter(tag_visible, texts)
         text = u" ".join(t.strip() for t in visible_texts)

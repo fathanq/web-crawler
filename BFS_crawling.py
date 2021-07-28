@@ -68,19 +68,38 @@ def crawl(url):
         title = soup.title.string
         # print("judul:", title)
 
-        # extract text content
-        texts = soup.findAll(text=True)
-        visible_texts = filter(tag_visible, texts)
-        text = u" ".join(t.strip() for t in visible_texts)
-        text = text.lstrip().rstrip()
-        text = text.split(',')
-        clean_text = ''
-        for sen in text:
-            if sen:
-                sen = sen.rstrip().lstrip()
-                clean_text += sen+','
-        complete_text = clean_text
-        # print(complete_text)
+        # check version html
+        article_html5 = soup.find('article')
+        if article_html5 is None:
+            # extract text content from html4
+            html5 = "no"
+            texts = soup.find('body').findAll(text=True)
+            visible_texts = filter(tag_visible, texts)
+            text = u" ".join(t.strip() for t in visible_texts)
+            text = text.lstrip().rstrip()
+            text = text.split(',')
+            clean_text = ''
+            for sen in text:
+                if sen:
+                    sen = sen.rstrip().lstrip()
+                    clean_text += sen+','
+            complete_text = clean_text
+            # print(complete_text)
+        else:
+            # extract text content from html5
+            html5 = "yes"
+            texts = article_html5.findAll(text=True)
+            visible_texts = filter(tag_visible, texts)
+            text = u" ".join(t.strip() for t in visible_texts)
+            text = text.lstrip().rstrip()
+            text = text.split(',')
+            clean_text = ''
+            for sen in text:
+                if sen:
+                    sen = sen.rstrip().lstrip()
+                    clean_text += sen+','
+            complete_text = clean_text
+            # print(complete_text)
 
         # get meta description
         description = soup.find("meta",attrs={"name":"description"})
@@ -96,8 +115,7 @@ def crawl(url):
         else:
             keywords = keywords.get("content")
 
-        # isHTML5 or isHotURL
-        html5 = "no"
+        # isHotURL
         hot_link = "no"
 
         # Create a new record
