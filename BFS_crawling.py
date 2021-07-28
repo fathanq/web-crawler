@@ -50,10 +50,8 @@ def crawl(url):
         # kondisi berhenti
         time_now = time.time() - start_time
         time_now_int = int(time_now)
-        if time_now_int >= 5:
+        if time_now_int >= 10:
             return
-        # if len(visited_url) >= 1800:
-        #     return
 
         # memasukan url kedalam visited_url
         visited_url.append(url)
@@ -66,7 +64,6 @@ def crawl(url):
 
         # extract title
         title = soup.title.string
-        # print("judul:", title)
 
         # check version html
         article_html5 = soup.find('article')
@@ -235,16 +232,6 @@ def crawl(url):
     if len(url_queue) == 0:
         return
     current = url_queue.popleft()
-
-    # # create list graph
-    # branch = []
-    # # remove https://
-    # new_url = url.replace('https://', '')
-    # new_complete = current.replace('https://', '')
-    # branch.append(new_url)
-    # branch.append(new_complete)
-    # list_g.append(branch)
-
     crawl(current)
 
 

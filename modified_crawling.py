@@ -7,7 +7,7 @@ def reorder_queue(queue):
     value_backlink = []
     for u in queue:
         # menentukan nilai backlink_count
-        backlink_count = 1
+        backlink_count = list_g.count(u)
         # memasukan backlink_count ke array value_backlink
         value_backlink.append(backlink_count)
 
@@ -22,8 +22,6 @@ def reorder_queue(queue):
     # membuat queue yang sudah di sort
     for i in sort_orders:
         queue.append(i[0])
-        # melihat value backlink dari setiap url
-        # print(i)
 
     return queue
 
@@ -42,10 +40,7 @@ def jumlah_key_body(complete_text):
     """Function untuk menghitung jumlah key di text
     """
     keyword = hot_key
-    # keyword2 = "Klub bola Barcelona"
-    # keyword3 = "klub bola Barcelona"
     jumlah_keyword = complete_text.count(keyword)
-    # jumlah_keyword = complete_text.count(keyword)
     return jumlah_keyword
 
 
@@ -53,10 +48,7 @@ def jumlah_key_title(title):
     """Function untuk menghitung jumlah key di title
     """
     keyword = hot_key
-    # keyword2 = "Klub bola Barcelona"
-    # keyword3 = "klub bola Barcelona"
     jumlah_keyword = title.count(keyword)
-    # jumlah_keyword = title.count(keyword)
     return jumlah_keyword
 
 
@@ -67,7 +59,7 @@ def modified_crawl(url):
         # kondisi berhenti biar ga running all the time
         time_now = time.time() - start_time_MSB
         time_now_int = int(time_now)
-        if time_now_int >= 5:
+        if time_now_int >= 10:
             return
         # if len(visited_url) >= 1800:
         #     return
