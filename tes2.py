@@ -7,7 +7,15 @@ from collections import deque, Counter
 import urllib.request
 from urllib.parse import urljoin
 import time
+import sys
 import pymysql
+
+limit = sys.getrecursionlimit()
+print(limit)
+# Using sys.setrecursionlimit() method 
+sys.setrecursionlimit(100000000)
+limit = sys.getrecursionlimit()
+print(limit)
 
 u = "www.indosport.com"
 
@@ -21,7 +29,7 @@ branch.append("www.indosport.com")
 branch.append("www.zalora.com")
 list_g.append(branch)
 result = list_g.count(u)
-print(result)
+# print(result)
 
 # def tag_visible(element):
 #     """Function untuk merapihkan content text.

@@ -59,7 +59,7 @@ def modified_crawl(url):
         # kondisi berhenti biar ga running all the time
         time_now = time.time() - start_time_MSB
         time_now_int = int(time_now)
-        if time_now_int >= 10:
+        if time_now_int >= 300:
             return
         # if len(visited_url) >= 1800:
         #     return

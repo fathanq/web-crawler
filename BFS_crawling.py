@@ -11,7 +11,11 @@ import matplotlib.pyplot as plt
 import pydot
 from networkx.drawing.nx_pydot import graphviz_layout
 import time
+import sys
 import pymysql
+
+# Using sys.setrecursionlimit() method 
+sys.setrecursionlimit(100000000)
 
 #conneting mysql database
 db = pymysql.connect( host = 'localhost', user = 'root', passwd = '', db='dbcrawl')
@@ -50,7 +54,7 @@ def crawl(url):
         # kondisi berhenti
         time_now = time.time() - start_time
         time_now_int = int(time_now)
-        if time_now_int >= 10:
+        if time_now_int >= 300:
             return
 
         # memasukan url kedalam visited_url
