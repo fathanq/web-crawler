@@ -117,7 +117,7 @@ def tag_visible(element):
 
 try:
 
-    url = "http://Manchester%20City"
+    url = "http://optout.aboutads.info/#"
     page = requests.get(url)
     request = page.content
     soup = bs4.BeautifulSoup(request, 'html.parser')
@@ -155,7 +155,7 @@ try:
         complete_text = clean_text
         print(complete_text)
 
-except (AttributeError, KeyError, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
+except (AttributeError, KeyError, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError, pymysql.err.IntegrityError):
     print("haduh")
 
 # description = soup.find("meta", property="og:description")
