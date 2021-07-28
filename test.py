@@ -117,7 +117,7 @@ def tag_visible(element):
 
 try:
 
-    url = "https://www.indosport.com"
+    url = "http://Manchester%20City"
     page = requests.get(url)
     request = page.content
     soup = bs4.BeautifulSoup(request, 'html.parser')
@@ -155,7 +155,7 @@ try:
         complete_text = clean_text
         print(complete_text)
 
-except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
+except (AttributeError, KeyError, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
     print("haduh")
 
 # description = soup.find("meta", property="og:description")

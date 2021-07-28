@@ -228,7 +228,7 @@ def crawl(url):
                 if (visited_url.count(complete_url)) == 0:
                     url_queue.append(complete_url)
 
-    except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
+    except (AttributeError, KeyError, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
         title = "no-title"
         complete_text = "no-text"
 

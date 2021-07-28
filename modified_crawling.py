@@ -253,7 +253,7 @@ def modified_crawl(url):
         reorder_queue(hot_queue)
         reorder_queue(url_queue)
 
-    except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
+    except (AttributeError, KeyError, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
         title = "no-title"
         complete_text = "no-text"
 
