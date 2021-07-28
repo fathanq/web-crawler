@@ -232,6 +232,16 @@ def crawl(url):
     if len(url_queue) == 0:
         return
     current = url_queue.popleft()
+
+    # # create list graph
+    # branch = []
+    # # remove https://
+    # new_url = url.replace('https://', '')
+    # new_complete = current.replace('https://', '')
+    # branch.append(new_url)
+    # branch.append(new_complete)
+    # list_g.append(branch)
+
     crawl(current)
 
 
