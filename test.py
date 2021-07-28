@@ -126,19 +126,35 @@ try:
         print("yes", response)
     else:
         print("no", response)
-
-    body = soup.find('body').get_text()
-    # visible_texts = filter(tag_visible, body)
-    text = u" ".join(t.strip() for t in body)
-    text = text.lstrip().rstrip()
-    text = text.split(',')
-    clean_text = ''
-    for sen in text:
-        if sen:
-            sen = sen.rstrip().lstrip()
-            clean_text += sen+','
-    complete_text = clean_text
-    print(complete_text)
+    
+    article_html5 = soup.find('article')
+    if article_html5 is None:
+        # body = soup.find('body').get_text()
+        texts = soup.find('body').findAll(text=True)
+        visible_texts = filter(tag_visible, texts)
+        text = u" ".join(t.strip() for t in visible_texts)
+        text = text.lstrip().rstrip()
+        text = text.split(',')
+        clean_text = ''
+        for sen in text:
+            if sen:
+                sen = sen.rstrip().lstrip()
+                clean_text += sen+','
+        complete_text = clean_text
+        print(complete_text)
+    else:
+        texts = article_html5.findAll(text=True)
+        visible_texts = filter(tag_visible, texts)
+        text = u" ".join(t.strip() for t in visible_texts)
+        text = text.lstrip().rstrip()
+        text = text.split(',')
+        clean_text = ''
+        for sen in text:
+            if sen:
+                sen = sen.rstrip().lstrip()
+                clean_text += sen+','
+        complete_text = clean_text
+        print(complete_text)
 
 except (AttributeError, KeyError, requests.exceptions.InvalidSchema):
     print("haduh")
