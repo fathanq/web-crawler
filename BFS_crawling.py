@@ -54,7 +54,7 @@ def crawl(url):
         # kondisi berhenti
         time_now = time.time() - start_time
         time_now_int = int(time_now)
-        if time_now_int >= 300:
+        if time_now_int >= 900:
             return
 
         # memasukan url kedalam visited_url
