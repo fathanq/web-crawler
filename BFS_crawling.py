@@ -119,12 +119,28 @@ def crawl(url):
         # isHotURL
         hot_link = "no"
 
-        # Create a new record
-        sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`, `model_crawl`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-        # Execute the query
-        cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link, "BFS crawling"))
-        # commit to save our changes
-        db.commit()
+        # check table if exist at crawldb
+        cursor.execute(
+            "SELECT base_url, COUNT(*) FROM page_information WHERE base_url = %s GROUP BY base_url",
+            (url,)
+        )
+        results = cursor.fetchall()
+        # gets the number of rows affected by the command executed
+        row_count = cursor.rowcount
+        if row_count == 0:
+            # Create a new record
+            sql = "INSERT INTO `page_information` (`base_url`, `html5`, `title`, `description`, `keywords`, `content_text`, `hot_url`, `model_crawl`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            # Execute the query
+            cursor.execute(sql, (url, html5, title, description, keywords, complete_text, hot_link, "BFS crawling"))
+            # commit to save our changes
+            db.commit()
+        else:
+            # update database
+            sql = "UPDATE page_information SET hot_url = %s WHERE base_url = %s"
+            # Execute the query
+            cursor.execute(sql, (hot_url, url))
+            # commit to save our changes
+            db.commit()
 
         # extract style
         for style in soup.findAll('style'):
