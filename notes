@@ -2,12 +2,6 @@ yang diambil datanya berupa:
 1. judul
 2. text di body
 3. outgoing link / links / urls
-*untuk judul dan text belum tau disimpan dimana
-
-eror:
-1. eror pas crawl twitter, karna struktur htmlnya berbeda. tag <title> berupa NonType
-2. login facebook juga sama seperti diatas.
-3. belum menemukan rumus untuk backlink_count / value pagerank untuk reorder_queue
 
 program ini berjalan dengan python3, pada detail pc sebagai berikut,
 Operating System    : Windows 10 Home Single Language 64-bit (10.0, Build 18362) (18362.19h1_release.190318-1202)
